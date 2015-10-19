@@ -19,7 +19,11 @@
 if [ -f /proc/cpuinfo ]; then
 
     echo -n "MODELNAME=\""
-    grep -m 1 "model name" /proc/cpuinfo | cut -d: -f2 | sed -e 's/^ *//' | sed -e 's/$/"/'
-
+    if [ `uname -m` = "ppc64le" ]; then
+        grep -m 1 "cpu" /proc/cpuinfo | cut -d: -f2 | sed -e 's/^ *//' | sed -e 's/$/"/'
+    else
+        grep -m 1 "model name" /proc/cpuinfo | cut -d: -f2 | sed -e 's/^ *//' | sed -e 's/$/"/'
+    fi
 fi
+
 
